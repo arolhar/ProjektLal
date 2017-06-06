@@ -1,0 +1,280 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Brandi Template">
+    <meta name="author" content="MBDesign">
+    <title>{% block title %}EFS-ZU{% endblock %}</title>
+    <!--FONTS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!--CSS-->
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header class="main-bg" id="main">
+        <!-- Nav -->
+        <nav class="nav is-fixed-top">
+            <div class="container">
+                <div class="nav-left">
+                    <a class="nav-item">
+                        <img src="{% static 'img/logo.svg' %}" alt="EFS-ZU logo">
+                    </a>
+                </div>
+                <span class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <div class="nav-right nav-menu">
+                    <a href="#main" class="nav-item is-active">Strona Główna</a>
+                    <a href="#works" class="nav-item">O nas</a>
+                    <a href="#funfacts" class="nav-item">Oferta</a>
+                    <a href="#contact" class="nav-item">Kontakt</a>
+                </div>
+            </div>
+        </nav>
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for news in last_news %}
+                <div class="swiper-slide">
+                    <div class="title is-1" data-swiper-parallax="-100">{{ news.title|slice:":15" }}</div>
+                    <div class="subtitle is-2" data-swiper-parallax="-200"><span>{{ news.created_date }}</span></div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </header>
+    
+    <section id="features">
+        <div class="container">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <h1 class="title is-3">Aktualności</h1>
+                    <div class="hr"><i class="fa fa-circle-thin" aria-hidden="true"></i></div>
+                </div>
+        </div>
+        <div class="columns">
+           {% for news in last_news %}
+                <div class="column">
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ news.title|truncatechars:30 }}</strong>
+                                        <br> {{ news.description|truncatechars:300 }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+    </section>
+    
+    <section id="works">
+        <div class="container">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <h1 class="title is-3">O nas</h1>
+                    <div class="hr"><i class="fa fa-circle-thin" aria-hidden="true"></i></div>
+                    {% for info in last_info %}
+                    <h2 class="subtitle is-6">{{ info.description }}</h2>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="team">
+        <div class="container">
+        </div>
+        <div class="container">
+            <div class="columns">
+               {% for user in last_user %}
+                   <div class="column">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-1by1">
+                                <img src="{% static 'img/003-teacher.svg' %}" alt="man image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content has-text-centered">
+                                    <p class="title is-4">{{ user.first_name }} {{ user.last_name }}</p>
+                                    <p class="subtitle is-6">{{ user.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <section id="funfacts">
+        <div class="container">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <h1 class="title is-3">Oferta</h1>
+                    <div class="hr"><i class="fa fa-circle-thin" aria-hidden="true"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+          <div class="columns">
+          {% for pack in last_pack %}
+           <div class="column is-one-third">
+             <div class="card">
+                <div class="card-content">
+                    <div class="content">
+                       <p class="cardr-title">
+                        {{ pack.title }}
+                    </p>
+                        {{ pack.description|safe }}
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a class="card-footer-item">{{ pack.price }} zł/miesiąc</a>
+                </footer>
+            </div>
+              </div>
+              {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <div class="container">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <h1 class="title is-3">Porozmawiajmy</h1>
+                    <div class="hr"><i class="fa fa-circle-thin" aria-hidden="true"></i></div>
+                    <h2 class="subtitle is-6">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <h3 class="is-3">Cras at ultrices erat, sed vulputate!</h3>
+                    <h4>2345 Setwant natrer, 1234</h4>
+                    <h4>Washington. United States</h4>
+                    <h4>(401) 1234 567</h4>
+                    <h4>hello@brandi.com</h4>
+                    <h4>ww.brandi.com</h4>
+                </div>
+                <div class="column">
+                    <h1 class="say">Witaj!</h1>
+                    <div class="field is-horizontal">
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded">
+                                    <input class="input" type="text" placeholder="Name">
+                                </p>
+                            </div>
+                            <div class="field">
+                                <p class="control is-expanded">
+                                    <input class="input" type="text" placeholder="Email">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-body">
+                            <div class="field is-grouped">
+                                <p class="control is-expanded">
+                                    <input class="input" type="text" placeholder="Message">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control is-pulled-right">
+                                    <button class="button"><i class="fa fa-envelope-o"></i>Send message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-1">
+                    <p class="notification">
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="columns info has-text-centered">
+                <div class="column">
+                    <h7>© 2017 EFS-ZU. All Rights Reserved.</h7>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <script src="{% static 'js/bulma.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false,
+            loop: true
+        });
+    </script>
+
+</body>
+
+</html>
